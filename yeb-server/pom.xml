@@ -10,7 +10,6 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.maple</groupId>
   <artifactId>yeb-server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>yeb-server</name>
@@ -36,7 +35,20 @@
       <optional>true</optional>
     </dependency>
 
-    
+    <!--    mysql 依赖-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!--    mybatis-plus 依赖-->
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+
   </dependencies>
 
 </project>
