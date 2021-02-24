@@ -75,6 +75,14 @@
       <version>0.9.1</version>
     </dependency>
 
+    <!--    公共模块-->
+    <dependency>
+      <groupId>com.maple</groupId>
+      <artifactId>yeb-common</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+
   </dependencies>
 
 </project>
