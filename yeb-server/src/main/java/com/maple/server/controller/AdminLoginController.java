@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
-@Api(tags = "LoginController")
+@Api(tags = "AdminLoginController")
 @RestController
-public class LoginController {
+public class AdminLoginController {
     protected Log log = LogFactory.getLog(this.getClass());
 
     //注入service
