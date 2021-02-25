@@ -2,13 +2,11 @@ package com.maple.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.maple.common.R;
-import com.maple.common.ResultCode;
 import com.maple.server.config.jwt.JwtTokenUtil;
 import com.maple.server.pojo.Admin;
 import com.maple.server.mapper.AdminMapper;
 import com.maple.server.service.IAdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -61,14 +58,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public R login(String username, String password, HttpServletRequest request) {
         // 用户名密码校验
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        System.out.println("username:" + username);
-        System.out.println("password:" + password);
-        System.out.println("password:::" + userDetails.getPassword());
-
+        System.out.println("username->>:" + username);
+        System.out.println("password->>:" + password);
         if(userDetails == null || !passwordEncoder.matches(password,userDetails.getPassword())){
             return R.error().message("用户名或密码不正确");
         }
-        System.out.println("password:::" + userDetails.getPassword());
 
         if(!userDetails.isEnabled()){
             return R.error().message("该账号已禁用,请联系管理员");
@@ -92,7 +86,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public Admin getAdminByUserName(String username) {
         Admin admin = adminMapper.selectOne(new QueryWrapper<Admin>().eq("username",username).eq("enabled",true));
-        admin.setPassword(null);
         return admin;
     }
 }

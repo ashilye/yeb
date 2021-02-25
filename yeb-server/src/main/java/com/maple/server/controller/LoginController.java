@@ -6,6 +6,8 @@ import com.maple.server.pojo.AdminLoginParam;
 import com.maple.server.service.IAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.security.Principal;
 @Api(tags = "LoginController")
 @RestController
 public class LoginController {
+    protected Log log = LogFactory.getLog(this.getClass());
 
     //注入service
     @Autowired
@@ -39,6 +42,8 @@ public class LoginController {
         if(admin == null){
             return R.error();
         }
+        admin.setPassword(null);
+        System.out.println("admin->>:" + admin.getUsername());
         return R.success().data("user",admin);
     }
 
