@@ -34,13 +34,13 @@ public class AdminLoginController {
     @GetMapping("/admin/info")
     public R getAdminInfo(Principal principal){
         if(principal == null){
-            return R.error();
+            return R.error().message("未查询到该用户!");
         }
 
         String username = principal.getName();
         Admin admin = adminService.getAdminByUserName(username);
         if(admin == null){
-            return R.error();
+            return R.error().message("未查询到该用户!!!");
         }
         admin.setPassword(null);
         System.out.println("admin->>:" + admin.getUsername());

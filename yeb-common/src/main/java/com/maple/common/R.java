@@ -12,7 +12,7 @@ import java.util.Map;
 @Data
 public class R {
 
-    @ApiModelProperty(value = "返回码")
+    @ApiModelProperty(value = "返回码 200：成功, 其他失败")
     private Integer code;
 
     @ApiModelProperty(value = "返回消息")
