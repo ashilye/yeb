@@ -43,6 +43,8 @@ public class AdminLoginController {
             return R.error().message("未查询到该用户!!!");
         }
         admin.setPassword(null);
+        // 添加权限
+        admin.setRoles(adminService.getRolesByAdminId(admin.getId()));
         System.out.println("admin->>:" + admin.getUsername());
         return R.success().data("user",admin);
     }

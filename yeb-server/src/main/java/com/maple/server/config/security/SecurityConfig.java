@@ -94,6 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return username ->{
             Admin admin = adminService.getAdminByUserName(username);
             if (admin != null) {
+                admin.setRoles(adminService.getRolesByAdminId(admin.getId()));
                 return admin;
             }
             return null;

@@ -3,8 +3,10 @@ package com.maple.server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.maple.common.R;
 import com.maple.server.config.jwt.JwtTokenUtil;
+import com.maple.server.mapper.RoleMapper;
 import com.maple.server.pojo.Admin;
 import com.maple.server.mapper.AdminMapper;
+import com.maple.server.pojo.Role;
 import com.maple.server.service.IAdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,6 +48,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     // mapper 查询数据库
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private RoleMapper roleMapper;
+
 
 
     /**
@@ -92,5 +98,15 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public Admin getAdminByUserName(String username) {
         Admin admin = adminMapper.selectOne(new QueryWrapper<Admin>().eq("username",username).eq("enabled",true));
         return admin;
+    }
+
+    /**
+     * 根据用户id获取权限列表
+     * @param adminId
+     * @return
+     */
+    @Override
+    public List<Role> getRolesByAdminId(Integer adminId) {
+        return roleMapper.getRolesByAdminId(adminId);
     }
 }
