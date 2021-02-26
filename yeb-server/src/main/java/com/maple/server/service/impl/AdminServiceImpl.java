@@ -55,7 +55,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @return
      */
     @Override
-    public R login(String username, String password, HttpServletRequest request) {
+    public R login(String username, String password, String code,HttpServletRequest request) {
+        //先判断验证码
+        String captcha = (String) request.getSession().getAttribute("captcha");
+        if(!StringUtils.hasLength(captcha) || !captcha.equalsIgnoreCase(code)){
+            return R.error().message("验证码填写错误,请重新填写！");
+        }
         // 用户名密码校验
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         System.out.println("username->>:" + username);

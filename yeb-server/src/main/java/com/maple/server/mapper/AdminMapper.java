@@ -3,6 +3,7 @@ package com.maple.server.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.maple.server.pojo.Admin;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import com.maple.server.pojo.Admin;
  * @author gaoguanqi
  * @since 2021-02-23
  */
+@Repository
 public interface AdminMapper extends BaseMapper<Admin> {
 
 }

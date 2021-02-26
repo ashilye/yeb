@@ -18,5 +18,6 @@ public class AdminLoginParam {
     private String username;
     @ApiModelProperty(value = "密码",required = true) //必填
     private String password;
-
+    @ApiModelProperty(value = "验证码",required = true) //必填
+    private String code;
 }

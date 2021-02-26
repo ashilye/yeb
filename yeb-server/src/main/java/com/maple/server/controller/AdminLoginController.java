@@ -27,7 +27,7 @@ public class AdminLoginController {
     @ApiOperation(value = "登录成功返回token")
     @PostMapping("/login")
     public R login(@RequestBody AdminLoginParam adminLoginParam, HttpServletRequest request){
-        return adminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),request);
+        return adminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),adminLoginParam.getCode(),request);
     }
 
     @ApiOperation(value = "获取当前用户信息")
