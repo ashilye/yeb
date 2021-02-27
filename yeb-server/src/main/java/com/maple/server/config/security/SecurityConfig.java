@@ -1,5 +1,7 @@
 package com.maple.server.config.security;
 
+import com.maple.server.config.filter.CustomFilter;
+import com.maple.server.config.filter.CustomUrlDecisionManager;
 import com.maple.server.config.jwt.JwtAuthenticationTokenFilter;
 import com.maple.server.config.jwt.RestAuthorizationEntryPoint;
 import com.maple.server.config.jwt.RestfulAccessDeniedHandler;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
@@ -29,6 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+
+    @Autowired
+    private CustomFilter customFilter;
+    @Autowired
+    private CustomUrlDecisionManager customUrlDecisionManager;
 
 
     @Override
@@ -68,14 +76,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 //动态权限配置
-//                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//                    @Override
-//                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-//                        o.setAccessDecisionManager(customUrlDecisionManager);
-//                        o.setSecurityMetadataSource(customFilter);
-//                        return o;
-//                    }
-//                })
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setAccessDecisionManager(customUrlDecisionManager);
+                        o.setSecurityMetadataSource(customFilter);
+                        return o;
+                    }
+                })
                 .and()
                 //禁用缓存
                 .headers()
@@ -97,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 admin.setRoles(adminService.getRolesByAdminId(admin.getId()));
                 return admin;
             }
-            return null;
+            throw  new UsernameNotFoundException("用户名或密码不正确！！！");
         };
     }
 

@@ -28,16 +28,23 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
+    #超时时间
     timeout: 10000ms
+    #服务器地址
     host: 39.102.65.157
+    #服务器端口
     port: 6379
+    #数据库
     database: 0 # 选择哪个库，默认0库
+
     lettuce:
       pool:
         max-active: 1024 # 最大连接数，默认 8
         max-wait: 10000ms # 最大连接阻塞等待时间，单位毫秒，默认 -1
         max-idle: 200 # 最大空闲连接，默认 8
         min-idle: 5
+    #密码
+    password: root
 
 # mybatis-plus 配置
 mybatis-plus:

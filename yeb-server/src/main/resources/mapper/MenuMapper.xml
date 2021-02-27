@@ -16,6 +16,7 @@
         <result column="enabled" property="enabled" />
     </resultMap>
 
+    <!--根据角色获取菜单列表-->
     <resultMap id="Menus" type="com.maple.server.pojo.Menu" extends="BaseResultMap">
         <collection property="children" ofType="com.maple.server.pojo.Menu">
             <id column="id2" property="id"/>
@@ -28,6 +29,15 @@
             <result column="requireAuth2" property="requireAuth"/>
             <result column="parentId2" property="parentId"/>
             <result column="enabled2" property="enabled"/>
+        </collection>
+    </resultMap>
+
+    <!--根据角色获取菜单列表-->
+    <resultMap id="MenusWithRoles" type="com.maple.server.pojo.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="com.maple.server.pojo.Role">
+            <id column="rid" property="id" />
+            <result column="rname" property="name" />
+            <result column="rnameZh" property="nameZh" />
         </collection>
     </resultMap>
 
@@ -67,4 +77,19 @@
             m2.id
     </select>
 
+    <!--根据角色获取菜单列表-->
+    <select id="getMenusWithRole" resultMap="MenusWithRoles">
+        select
+            m.*,
+            r.id as rid,
+            r.name as rname,
+            r.nameZh as rnameZh
+        from t_menu m,
+             t_menu_role mr,
+             t_role r
+        where
+            m.id = mr.mid
+            and mr.rid = r.id
+        order by m.id;
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.maple.server.controller;
 
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.maple.common.R;
 import com.maple.server.pojo.Menu;
 import com.maple.server.service.IAdminService;
@@ -36,7 +37,7 @@ public class MenuController {
     @GetMapping("/menu")
     public R getMenusByAdminId(){
         List<Menu> menuList = menuService.getMenusByAdminId();
-        if(menuList == null && menuList.isEmpty()){
+        if(CollectionUtils.isEmpty(menuList)){
             return R.error().message("查询菜单失败");
         }
         return R.success().data("menus",menuList);
