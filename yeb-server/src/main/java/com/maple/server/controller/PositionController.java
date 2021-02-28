@@ -22,14 +22,14 @@ import java.util.List;
  * @since 2021-02-23
  */
 @RestController
-@RequestMapping("/system/config/pos")
+@RequestMapping("/system/basic/pos")
 public class PositionController {
 
     @Autowired
     private IPositionService positionService;
 
 
-    @ApiOperation(value = "获取所有职位信息")
+    @ApiOperation(value = "获取所有职位")
     @GetMapping("/")
     public R getAllPositions(){
         List<Position> list = positionService.list();
@@ -39,7 +39,7 @@ public class PositionController {
         return R.success().data("list",list);
     }
 
-    @ApiOperation(value = "添加职位信息")
+    @ApiOperation(value = "添加职位")
     @PostMapping("/")
     public R addPosition(@RequestBody Position position){
         position.setCreateDate(LocalDateTime.now());
@@ -49,7 +49,7 @@ public class PositionController {
         return R.error().message("添加失败");
     }
 
-    @ApiOperation(value = "更新职位信息")
+    @ApiOperation(value = "更新职位")
     @PutMapping("/")
     public R updatePosition(@RequestBody Position position){
         if(positionService.updateById(position)){
