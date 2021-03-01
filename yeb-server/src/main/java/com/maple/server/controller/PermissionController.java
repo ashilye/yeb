@@ -126,7 +126,7 @@ public class PermissionController {
     }
 
     @ApiOperation(value = "更新角色菜单")
-    @PutMapping("/")
+    @PutMapping("/updateMenuRole/{rid,mids}")
     private R updateMenuRole(Integer rid,Integer[] mids){
          return menuRoleService.updateMenuRole(rid,mids);
     }
